@@ -397,9 +397,19 @@ def ejercicio_4_reflexion():
    importa: si PHONE se aplica antes que DPI, consume los digitos primero
    y la etiqueta queda incorrecta.
 
-4. (Pendiente: discutir en equipo)
+4. Regex no sería suficiente para proteger por completo la información de una 
+   empresa real. Los patrones funcionan correctamente cuando los datos tienen 
+   formatos conocidos, pero no comprenden el significado ni el contexto del 
+   texto. También una credencial puede escribirse usando palabras diferentes
+   de clave o token y no ser detectada. Entonces Regex unica barrera de defesa.
 
-5. (Pendiente: discutir en equipo)
+5. Una de las capa adicional que agregariamos es un sismtea que analice el 
+   contexto del mensaje antes de enviarlo al LLM. Este podria combinar regla Regex
+   con un clasificaor de datos sensibles y validaciones segun el tipo de infromación 
+   esperado. Tambien se solicitaria. Además se puede pedir la confimación al usuario,
+   registrar las acciones para auditoría, aplicar controles de acceso y derivar los
+   casos ambiguos a revisión humana antes de permitirlos o bloquearlos.
+
 """.strip()
 
     print("=" * 80)
