@@ -1,0 +1,382 @@
+﻿================================================================================
+DEMO: COMPARACION DE TOKENIZADORES
+================================================================================
+Texto:
+Mi numero es +502 5555-1234 y mi correo es ana@uvg.edu.gt
+
+Tokenizacion por espacios:
+['Mi', 'numero', 'es', '+502', '5555-1234', 'y', 'mi', 'correo', 'es', 'ana@uvg.edu.gt']
+
+Tokenizacion Regex basica:
+['mi', 'numero', 'es', '502', '5555', '1234', 'y', 'mi', 'correo', 'es', 'ana', 'uvg', 'edu', 'gt']
+
+Tokenizacion Regex mixta:
+['Mi', 'numero', 'es', '+', '502', '5555', '-', '1234', 'y', 'mi', 'correo', 'es', 'ana@uvg.edu.gt']
+
+================================================================================
+DEMO: PIPELINE COMPLETO
+================================================================================
+
+================================================================================
+TEXTO 1
+================================================================================
+Texto original:
+Hola!!! necesito ayuda con mi cuenta :( mi correo es ana.lopez@uvg.edu.gt
+
+Texto normalizado:
+Hola!!! necesito ayuda con mi cuenta :( mi correo es ana.lopez@uvg.edu.gt
+
+Datos sensibles detectados:
+  - EMAIL: ana.lopez@uvg.edu.gt
+
+Accion recomendada: REDACT
+
+Texto seguro:
+Hola!!! necesito ayuda con mi cuenta :( mi correo es [EMAIL_REDACTED]
+
+Tokens:
+['Hola', '!', '!', '!', 'necesito', 'ayuda', 'con', 'mi', 'cuenta', ':', '(', 'mi', 'correo', 'es', '[', 'EMAIL_REDACTED', ']']
+
+Estadisticas:
+Caracteres: 69
+Tokens: 17
+Tokens unicos: 14
+Top 10 tokens:
+  - !: 3
+  - mi: 2
+  - Hola: 1
+  - necesito: 1
+  - ayuda: 1
+  - con: 1
+  - cuenta: 1
+  - :: 1
+  - (: 1
+  - correo: 1
+
+================================================================================
+TEXTO 2
+================================================================================
+Texto original:
+El modelo GPT-4.1 respondio: 'No tengo suficiente contexto.'
+
+Texto normalizado:
+El modelo GPT-4.1 respondio: 'No tengo suficiente contexto.'
+
+Datos sensibles detectados:
+  No se detectaron datos sensibles.
+
+Accion recomendada: ALLOW
+
+Texto seguro:
+El modelo GPT-4.1 respondio: 'No tengo suficiente contexto.'
+
+Tokens:
+['El', 'modelo', 'GPT', '-', '4', '.', '1', 'respondio', ':', "'", 'No', 'tengo', 'suficiente', 'contexto', '.', "'"]
+
+Estadisticas:
+Caracteres: 60
+Tokens: 16
+Tokens unicos: 14
+Top 10 tokens:
+  - .: 2
+  - ': 2
+  - El: 1
+  - modelo: 1
+  - GPT: 1
+  - -: 1
+  - 4: 1
+  - 1: 1
+  - respondio: 1
+  - :: 1
+
+================================================================================
+TEXTO 3
+================================================================================
+Texto original:
+Mi numero es +502 5555-1234 y mi sitio es https://uvg.edu.gt
+
+Texto normalizado:
+Mi numero es +502 5555-1234 y mi sitio es https://uvg.edu.gt
+
+Datos sensibles detectados:
+  - URL: https://uvg.edu.gt
+  - PHONE: +502 5555-1234
+
+Accion recomendada: REDACT
+
+Texto seguro:
+Mi numero es [PHONE_REDACTED] y mi sitio es [URL_REDACTED]
+
+Tokens:
+['Mi', 'numero', 'es', '[', 'PHONE_REDACTED', ']', 'y', 'mi', 'sitio', 'es', '[', 'URL_REDACTED', ']']
+
+Estadisticas:
+Caracteres: 58
+Tokens: 13
+Tokens unicos: 10
+Top 10 tokens:
+  - es: 2
+  - [: 2
+  - ]: 2
+  - Mi: 1
+  - numero: 1
+  - PHONE_REDACTED: 1
+  - y: 1
+  - mi: 1
+  - sitio: 1
+  - URL_REDACTED: 1
+
+================================================================================
+TEXTO 4
+================================================================================
+Texto original:
+API_KEY=abc123-super-secreta no deberia compartirse con ningun modelo.
+
+Texto normalizado:
+API_KEY=abc123-super-secreta no deberia compartirse con ningun modelo.
+
+Datos sensibles detectados:
+  - SECRET_WORD: API_KEY
+
+Accion recomendada: BLOCK
+
+Texto seguro:
+  [BLOQUEADO: no debe enviarse al modelo]
+
+Tokens:
+[]
+
+Estadisticas:
+  No se calcularon estadisticas porque el texto fue bloqueado.
+
+================================================================================
+TEXTO 5
+================================================================================
+Texto original:
+anticonstitucionalmente, NLP, #IA, www.example.com/manual.pdf
+
+Texto normalizado:
+anticonstitucionalmente, NLP, #IA, www.example.com/manual.pdf
+
+Datos sensibles detectados:
+  - URL: www.example.com/manual.pdf
+
+Accion recomendada: WARN
+
+Texto seguro:
+anticonstitucionalmente, NLP, #IA, www.example.com/manual.pdf
+
+Tokens:
+['anticonstitucionalmente', ',', 'NLP', ',', '#', 'IA', ',', 'www.example.com/manual.pdf']
+
+Estadisticas:
+Caracteres: 61
+Tokens: 8
+Tokens unicos: 6
+Top 10 tokens:
+  - ,: 3
+  - anticonstitucionalmente: 1
+  - NLP: 1
+  - #: 1
+  - IA: 1
+  - www.example.com/manual.pdf: 1
+
+================================================================================
+TEXTO 6
+================================================================================
+Texto original:
+El codigo del curso es CC3103 y la clase inicia a las 17:20.
+
+Texto normalizado:
+El codigo del curso es CC3103 y la clase inicia a las 17:20.
+
+Datos sensibles detectados:
+  No se detectaron datos sensibles.
+
+Accion recomendada: ALLOW
+
+Texto seguro:
+El codigo del curso es CC3103 y la clase inicia a las 17:20.
+
+Tokens:
+['El', 'codigo', 'del', 'curso', 'es', 'CC3103', 'y', 'la', 'clase', 'inicia', 'a', 'las', '17', ':', '20', '.']
+
+Estadisticas:
+Caracteres: 60
+Tokens: 16
+Tokens unicos: 16
+Top 10 tokens:
+  - El: 1
+  - codigo: 1
+  - del: 1
+  - curso: 1
+  - es: 1
+  - CC3103: 1
+  - y: 1
+  - la: 1
+  - clase: 1
+  - inicia: 1
+
+================================================================================
+TEXTO 7
+================================================================================
+Texto original:
+Puedes escribirme a soporte.demo@example.com si tienes dudas sobre la entrega.
+
+Texto normalizado:
+Puedes escribirme a soporte.demo@example.com si tienes dudas sobre la entrega.
+
+Datos sensibles detectados:
+  - EMAIL: soporte.demo@example.com
+
+Accion recomendada: REDACT
+
+Texto seguro:
+Puedes escribirme a [EMAIL_REDACTED] si tienes dudas sobre la entrega.
+
+Tokens:
+['Puedes', 'escribirme', 'a', '[', 'EMAIL_REDACTED', ']', 'si', 'tienes', 'dudas', 'sobre', 'la', 'entrega', '.']
+
+Estadisticas:
+Caracteres: 70
+Tokens: 13
+Tokens unicos: 13
+Top 10 tokens:
+  - Puedes: 1
+  - escribirme: 1
+  - a: 1
+  - [: 1
+  - EMAIL_REDACTED: 1
+  - ]: 1
+  - si: 1
+  - tienes: 1
+  - dudas: 1
+  - sobre: 1
+
+================================================================================
+TEXTO 8
+================================================================================
+Texto original:
+Para emergencias llama al +502 4444-9999 antes de las 6pm.
+
+Texto normalizado:
+Para emergencias llama al +502 4444-9999 antes de las 6pm.
+
+Datos sensibles detectados:
+  - PHONE: +502 4444-9999
+
+Accion recomendada: REDACT
+
+Texto seguro:
+Para emergencias llama al [PHONE_REDACTED] antes de las 6pm.
+
+Tokens:
+['Para', 'emergencias', 'llama', 'al', '[', 'PHONE_REDACTED', ']', 'antes', 'de', 'las', '6pm', '.']
+
+Estadisticas:
+Caracteres: 60
+Tokens: 12
+Tokens unicos: 12
+Top 10 tokens:
+  - Para: 1
+  - emergencias: 1
+  - llama: 1
+  - al: 1
+  - [: 1
+  - PHONE_REDACTED: 1
+  - ]: 1
+  - antes: 1
+  - de: 1
+  - las: 1
+
+================================================================================
+TEXTO 9
+================================================================================
+Texto original:
+Recuerda que el token de acceso es token_demo_98765, no lo compartas con nadie.
+
+Texto normalizado:
+Recuerda que el token de acceso es token_demo_98765, no lo compartas con nadie.
+
+Datos sensibles detectados:
+  - SECRET_WORD: token
+
+Accion recomendada: BLOCK
+
+Texto seguro:
+  [BLOQUEADO: no debe enviarse al modelo]
+
+Tokens:
+[]
+
+Estadisticas:
+  No se calcularon estadisticas porque el texto fue bloqueado.
+
+================================================================================
+TEXTO 10
+================================================================================
+Texto original:
+Mi DPI simulado es 1234 56789 0101 para el registro de la universidad.
+
+Texto normalizado:
+Mi DPI simulado es 1234 56789 0101 para el registro de la universidad.
+
+Datos sensibles detectados:
+  - PHONE: 1234 56789 0101
+  - DPI: 1234 56789 0101
+
+Accion recomendada: REDACT
+
+Texto seguro:
+Mi DPI simulado es [DPI_REDACTED] para el registro de la universidad.
+
+Tokens:
+['Mi', 'DPI', 'simulado', 'es', '[', 'DPI_REDACTED', ']', 'para', 'el', 'registro', 'de', 'la', 'universidad', '.']
+
+Estadisticas:
+Caracteres: 69
+Tokens: 14
+Tokens unicos: 14
+Top 10 tokens:
+  - Mi: 1
+  - DPI: 1
+  - simulado: 1
+  - es: 1
+  - [: 1
+  - DPI_REDACTED: 1
+  - ]: 1
+  - para: 1
+  - el: 1
+  - registro: 1
+
+================================================================================
+NOTAS DE REFLEXION (Ejercicio 4) - preguntas 1-3 respondidas con
+evidencia de ejecucion; 4 y 5 pendientes de discutir
+================================================================================
+1. Falso positivo: el DPI simulado (1234 56789 0101) se detecto a la vez
+   como PHONE y como DPI, porque el patron de telefono acepta cualquier
+   secuencia larga de digitos con espacios o guiones.
+
+2. Falsos negativos: telefonos y DPIs escritos con puntos
+   (502.5555.1234, 1234.56789.0101) no se detectan, pues los patrones solo
+   aceptan espacio o guion como separador; y sinonimos como "PIN" o
+   "credential" tampoco estan en la lista de palabras secretas.
+
+3. Informacion que se pierde al redactar: ya no se puede validar el dato
+   original ni distinguir dos valores del mismo tipo en un texto, pues
+   ambos quedan con la misma etiqueta. Ademas el orden de los reemplazos
+   importa: si PHONE se aplica antes que DPI, consume los digitos primero
+   y la etiqueta queda incorrecta.
+
+4. Regex no serφa suficiente para proteger por completo la informaci≤n de una 
+   empresa real. Los patrones funcionan correctamente cuando los datos tienen 
+   formatos conocidos, pero no comprenden el significado ni el contexto del 
+   texto. TambiΘn una credencial puede escribirse usando palabras diferentes
+   de clave o token y no ser detectada. Entonces Regex unica barrera de defesa.
+
+5. Una de las capa adicional que agregariamos es un sismtea que analice el 
+   contexto del mensaje antes de enviarlo al LLM. Este podria combinar regla Regex
+   con un clasificaor de datos sensibles y validaciones segun el tipo de infromaci≤n 
+   esperado. Tambien se solicitaria. Ademßs se puede pedir la confimaci≤n al usuario,
+   registrar las acciones para auditorφa, aplicar controles de acceso y derivar los
+   casos ambiguos a revisi≤n humana antes de permitirlos o bloquearlos.
